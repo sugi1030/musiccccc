@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>뮤직앱</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
@@ -215,9 +215,9 @@
         const musicWrap = document.querySelector('.wrapper');
         const musicAudio = musicWrap.querySelector('#main-audio');
         const playBtn = musicWrap.querySelector("#play-btn");
-
+        
         const musicPlay = () => {
-            playBtn.innerHTML = "pause"; //musicWrap.querySelector("#play-btn img").src="~.svg"
+            playBtn.innerHTML = "pause";
             musicAudio.play();
         }
         const musicPause = () => {
@@ -250,18 +250,17 @@
         */
 
 
-        let list_index = 0; //musicList[0] --> musicList[5] 순환 호출
+        let list_index = 0;
         const albumImg = musicWrap.querySelector(".m-img>img");
         const m_name = musicWrap.querySelector(".name");
-        const m_artist = musicWrap.querySelector(".artist"); //musicAudio
+        const m_artist = musicWrap.querySelector(".artist");
         
         const loadMusic = (num) => {
-            albumImg.src = `img/${musicList[num].img}.jpg`; //img경로
-            musicAudio.src = `songs/${musicList[num].audio}.mp3`; //audio경로
-            m_name.innerText = musicList[num].name;//name 글자정보
+            albumImg.src = `img/${musicList[num].img}.jpg`;
+            musicAudio.src = `songs/${musicList[num].audio}.mp3`;
+            m_name.innerText = musicList[num].name;
             m_artist.innerText = musicList[num].artist;
-            //article 글자정보
-        }
+        };
 
         window.addEventListener("load", () => {
             loadMusic(list_index);
@@ -287,9 +286,6 @@
         nextBtn.addEventListener("click", () => {
             nextMusic();
         });
-
-        // const progressive=musicWrap.querySelector(".m-progress");
-        // const progressBar=progressive.querySelector("bar");
 
         const progressive = musicWrap.querySelector(".m-progress");
         const progressBar = progressive.querySelector(".bar");
@@ -326,18 +322,23 @@
 
         const mRepeat = musicWrap.querySelector("#repeat-btn");
         musicAudio.addEventListener("ended", () => {
-            let getText = mRepeat, innerText;
-            if (getText == "repeat") { nextMusic(); } //repeat,repeat-one, shuffle 구분용 조건문
+            let getText = mRepeat.innerText;
+            if (getText == "repeat") { 
+                nextMusic(); 
+            };
         });
         
         const mCtr = document.querySelectorAll('.m-control> div');
         mCtr.forEach((item, index)=> {
             item.addEventListener('click', function(e){
                 if (e.target.getAttribute('id') == 'prev-btn' || e.target.getAttribute('id') == 'next-btn') {
-                    e.target.style.color = 'aquamarine';
-                    setTimeout(()=>{
-                        e.target.style.color = 'white';
-                    },100)
+                    if (playBtn.innerHTML == "pause") {
+                        musicListBtn.classList.add('active');
+                        e.target.style.color = 'aquamarine';
+                        setTimeout(()=>{
+                            e.target.style.color = 'white';
+                        },100)
+                    };
                 };
             });
         });
